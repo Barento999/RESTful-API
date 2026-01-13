@@ -55,7 +55,7 @@ CREATE TABLE enrollments (
 
 -- Insert sample admin (password: admin123)
 INSERT INTO admins (name, email, password) VALUES
-('Admin User', 'admin@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
+('Admin User', 'admin@example.com', '$2y$10$BRpVIV6yrMW7F1YwMuAJburMAAzq3.2.N8HJ/9dhFfA/40Tjv8nrO');
 
 -- Insert sample students
 INSERT INTO students (first_name, last_name, email, phone, address, dob, gender) VALUES

@@ -43,7 +43,7 @@ A complete RESTful API built with pure PHP and MySQL for managing students, cour
 
 ### 5. Test the API
 
-- Open browser: `http://localhost/student-api/`
+- Open browser: `http://localhost/rest-api/`
 
 ## Default Admin Credentials
 
@@ -54,7 +54,7 @@ Password: admin123
 
 ## API Endpoints
 
-Base URL: `http://localhost/student-api`
+Base URL: `http://localhost/rest-api`
 
 ### Authentication
 
@@ -553,5 +553,6 @@ This project demonstrates:
 ## License
 
 Free to use for personal and portfolio projects.
-#   R E S T f u l - A P I  
+#   R E S T f u l - A P I 
+ 
  

@@ -1,6 +1,6 @@
 <?php
-require_once '../db.php';
-require_once '../jwt.php';
+require_once __DIR__ . '/../db.php';
+require_once __DIR__ . '/../jwt.php';
 
 header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: *");

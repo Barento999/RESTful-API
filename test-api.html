@@ -206,8 +206,23 @@
     </div>
 
     <script>
-      const API_BASE = "http://localhost/student-api";
+      const API_BASE = "http://localhost/rest-api";
       let token = "";
+
+      // Test connection on page load
+      window.onload = async function () {
+        try {
+          const response = await fetch(`${API_BASE}/test-connection.php`);
+          const data = await response.json();
+          console.log("✅ API Connection Test:", data);
+        } catch (error) {
+          console.error("❌ API Connection Failed:", error);
+          alert(
+            "⚠️ Cannot connect to API!\n\nPlease check:\n1. XAMPP Apache is running\n2. Files are in C:\\xampp\\htdocs\\student-api\n3. Current API URL: " +
+              API_BASE
+          );
+        }
+      };
 
       async function login() {
         const email = document.getElementById("loginEmail").value;

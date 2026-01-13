@@ -1,5 +1,5 @@
 <?php
-require_once 'jwt.php';
+require_once __DIR__ . '/jwt.php';
 
 function authenticate() {
     $headers = getallheaders();
