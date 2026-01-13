@@ -4,8 +4,14 @@
 CREATE DATABASE IF NOT EXISTS student_api;
 USE student_api;
 
+-- Drop existing tables (in correct order due to foreign keys)
+DROP TABLE IF EXISTS enrollments;
+DROP TABLE IF EXISTS courses;
+DROP TABLE IF EXISTS students;
+DROP TABLE IF EXISTS admins;
+
 -- Admins Table
-CREATE TABLE IF NOT EXISTS admins (
+CREATE TABLE admins (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
@@ -14,7 +20,7 @@ CREATE TABLE IF NOT EXISTS admins (
 );
 
 -- Students Table
-CREATE TABLE IF NOT EXISTS students (
+CREATE TABLE students (
     id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
@@ -27,7 +33,7 @@ CREATE TABLE IF NOT EXISTS students (
 );
 
 -- Courses Table
-CREATE TABLE IF NOT EXISTS courses (
+CREATE TABLE courses (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     code VARCHAR(20) UNIQUE NOT NULL,
@@ -37,7 +43,7 @@ CREATE TABLE IF NOT EXISTS courses (
 );
 
 -- Enrollments Table
-CREATE TABLE IF NOT EXISTS enrollments (
+CREATE TABLE enrollments (
     id INT AUTO_INCREMENT PRIMARY KEY,
     student_id INT NOT NULL,
     course_id INT NOT NULL,
