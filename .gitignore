@@ -1,0 +1,49 @@
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Configuration files with sensitive data
+config.php
+
+# Test files
+test-api.html
+TEST-ALL-ENDPOINTS.html
+test-connection.php
+
+# Documentation files (optional - remove if you want to include them)
+DATABASE-IMPORT-GUIDE.md
+SETUP-GUIDE.txt
+HOW-TO-SELECT-DATABASE.txt
+FINAL-CHECKLIST.md
+PROJECT-SUMMARY.md
+
+# Database import scripts
+import-database.bat
+setup.sql
+
+# Generated files
+generate-password.php
+
+# Logs
+*.log
+error_log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Vendor dependencies (if using Composer)
+/vendor/
+
+# Environment files
+.env
+.env.local
+.env.*.local

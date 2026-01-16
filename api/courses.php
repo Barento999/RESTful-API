@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . '/../db.php';
-require_once __DIR__ . '/../auth.php';
-require_once __DIR__ . '/../config.php';
+// Route to MVC structure
+require_once __DIR__ . '/../routes/api.php';
+exit();
 
 header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: *");
