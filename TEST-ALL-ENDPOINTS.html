@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Complete API Test Suite</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #f0f2f5;
+        padding: 20px;
+      }
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      h1 {
+        color: #1a1a1a;
+        margin-bottom: 10px;
+      }
+      .subtitle {
+        color: #666;
+        margin-bottom: 30px;
+      }
+      .test-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 20px;
+      }
+      .test-card {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      .test-card h2 {
+        color: #333;
+        font-size: 18px;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 10px;
+      }
+      .test-item {
+        margin-bottom: 15px;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 5px;
+        border-left: 4px solid #6c757d;
+      }
+      .test-item h3 {
+        font-size: 14px;
+        color: #495057;
+        margin-bottom: 8px;
+      }
+      .test-item button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 13px;
+        margin-right: 5px;
+      }
+      .test-item button:hover {
+        background: #0056b3;
+      }
+      .test-item button.success {
+        background: #28a745;
+      }
+      .test-item button.danger {
+        background: #dc3545;
+      }
+      .status {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: bold;
+        margin-left: 10px;
+      }
+      .status.pending {
+        background: #ffc107;
+        color: #000;
+      }
+      .status.success {
+        background: #28a745;
+        color: white;
+      }
+      .status.error {
+        background: #dc3545;
+        color: white;
+      }
+      .response-box {
+        margin-top: 10px;
+        padding: 10px;
+        background: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        font-family: monospace;
+        font-size: 11px;
+        max-height: 200px;
+        overflow-y: auto;
+        white-space: pre-wrap;
+      }
+      .token-box {
+        background: #fff3cd;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        border-left: 4px solid #ffc107;
+      }
+      .token-box strong {
+        color: #856404;
+      }
+      .stats {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+      .stat-card {
+        flex: 1;
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .stat-card .number {
+        font-size: 32px;
+        font-weight: bold;
+        color: #007bff;
+      }
+      .stat-card .label {
+        color: #666;
+        font-size: 14px;
+        margin-top: 5px;
+      }
+      .run-all {
+        background: #28a745;
+        color: white;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-bottom: 20px;
+        width: 100%;
+      }
+      .run-all:hover {
+        background: #218838;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🚀 Complete API Test Suite</h1>
+      <p class="subtitle">Test all endpoints of your Student Management API</p>
+
+      <div class="stats">
+        <div class="stat-card">
+          <div class="number" id="totalTests">0</div>
+          <div class="label">Total Tests</div>
+        </div>
+        <div class="stat-card">
+          <div class="number" id="passedTests">0</div>
+          <div class="label">Passed</div>
+        </div>
+        <div class="stat-card">
+          <div class="number" id="failedTests">0</div>
+          <div class="label">Failed</div>
+        </div>
+      </div>
+
+      <button class="run-all" onclick="runAllTests()">▶ Run All Tests</button>
+
+      <div class="token-box" id="tokenBox" style="display: none">
+        <strong>🔑 JWT Token:</strong> <span id="tokenDisplay"></span>
+      </div>
+
+      <div class="test-grid">
+        <!-- Authentication Tests -->
+        <div class="test-card">
+          <h2>🔐 Authentication</h2>
+          <div class="test-item">
+            <h3>
+              Login
+              <span class="status pending" id="status-login">Pending</span>
+            </h3>
+            <button onclick="testLogin()">Test Login</button>
+            <div
+              class="response-box"
+              id="response-login"
+              style="display: none"></div>
+          </div>
+        </div>
+
+        <!-- Students Tests -->
+        <div class="test-card">
+          <h2>👨‍🎓 Students API</h2>
+          <div class="test-item">
+            <h3>
+              Get All Students
+              <span class="status pending" id="status-students-get"
+                >Pending</span
+              >
+            </h3>
+            <button onclick="testGetStudents()">Test</button>
+            <div
+              class="response-box"
+              id="response-students-get"
+              style="display: none"></div>
+          </div>
+          <div class="test-item">
+            <h3>
+              Get Single Student
+              <span class="status pending" id="status-students-single"
+                >Pending</span
+              >
+            </h3>
+            <button onclick="testGetStudent(1)">Test</button>
+            <div
+              class="response-box"
+              id="response-students-single"
+              style="display: none"></div>
+          </div>
+          <div class="test-item">
+            <h3>
+              Search Students
+              <span class="status pending" id="status-students-search"
+                >Pending</span
+              >
+            </h3>
+            <button onclick="testSearchStudents()">Test</button>
+            <div
+              class="response-box"
+              id="response-students-search"
+              style="display: none"></div>
+          </div>
+          <div class="test-item">
+            <h3>
+              Create Student
+              <span class="status pending" id="status-students-create"
+                >Pending</span
+              >
+            </h3>
+            <button class="success" onclick="testCreateStudent()">Test</button>
+            <div
+              class="response-box"
+              id="response-students-create"
+              style="display: none"></div>
+          </div>
+        </div>
+
+        <!-- Courses Tests -->
+        <div class="test-card">
+          <h2>📚 Courses API</h2>
+          <div class="test-item">
+            <h3>
+              Get All Courses
+              <span class="status pending" id="status-courses-get"
+                >Pending</span
+              >
+            </h3>
+            <button onclick="testGetCourses()">Test</button>
+            <div
+              class="response-box"
+              id="response-courses-get"
+              style="display: none"></div>
+          </div>
+          <div class="test-item">
+            <h3>
+              Get Single Course
+              <span class="status pending" id="status-courses-single"
+                >Pending</span
+              >
+            </h3>
+            <button onclick="testGetCourse(1)">Test</button>
+            <div
+              class="response-box"
+              id="response-courses-single"
+              style="display: none"></div>
+          </div>
+          <div class="test-item">
+            <h3>
+              Search Courses
+              <span class="status pending" id="status-courses-search"
+                >Pending</span
+              >
+            </h3>
+            <button onclick="testSearchCourses()">Test</button>
+            <div
+              class="response-box"
+              id="response-courses-search"
+              style="display: none"></div>
+          </div>
+          <div class="test-item">
+            <h3>
+              Create Course
+              <span class="status pending" id="status-courses-create"
+                >Pending</span
+              >
+            </h3>
+            <button class="success" onclick="testCreateCourse()">Test</button>
+            <div
+              class="response-box"
+              id="response-courses-create"
+              style="display: none"></div>
+          </div>
+        </div>
+
+        <!-- Enrollments Tests -->
+        <div class="test-card">
+          <h2>📝 Enrollments API</h2>
+          <div class="test-item">
+            <h3>
+              Get Student Courses
+              <span class="status pending" id="status-enroll-student"
+                >Pending</span
+              >
+            </h3>
+            <button onclick="testGetStudentCourses(1)">Test</button>
+            <div
+              class="response-box"
+              id="response-enroll-student"
+              style="display: none"></div>
+          </div>
+          <div class="test-item">
+            <h3>
+              Get Course Students
+              <span class="status pending" id="status-enroll-course"
+                >Pending</span
+              >
+            </h3>
+            <button onclick="testGetCourseStudents(1)">Test</button>
+            <div
+              class="response-box"
+              id="response-enroll-course"
+              style="display: none"></div>
+          </div>
+          <div class="test-item">
+            <h3>
+              Create Enrollment
+              <span class="status pending" id="status-enroll-create"
+                >Pending</span
+              >
+            </h3>
+            <button class="success" onclick="testCreateEnrollment()">
+              Test
+            </button>
+            <div
+              class="response-box"
+              id="response-enroll-create"
+              style="display: none"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const API_BASE = "http://localhost/rest-api";
+      let token = "";
+      let stats = { total: 11, passed: 0, failed: 0 };
+
+      function updateStats() {
+        document.getElementById("totalTests").textContent = stats.total;
+        document.getElementById("passedTests").textContent = stats.passed;
+        document.getElementById("failedTests").textContent = stats.failed;
+      }
+
+      function updateStatus(testId, success) {
+        const statusEl = document.getElementById(`status-${testId}`);
+        statusEl.className = "status " + (success ? "success" : "error");
+        statusEl.textContent = success ? "✓ Passed" : "✗ Failed";
+
+        if (success) stats.passed++;
+        else stats.failed++;
+        updateStats();
+      }
+
+      function displayResponse(testId, data, success) {
+        const responseEl = document.getElementById(`response-${testId}`);
+        responseEl.style.display = "block";
+        responseEl.textContent = JSON.stringify(data, null, 2);
+        updateStatus(testId, success);
+      }
+
+      async function testLogin() {
+        try {
+          const response = await fetch(`${API_BASE}/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email: "admin@example.com",
+              password: "admin123",
+            }),
+          });
+          const data = await response.json();
+
+          if (response.ok && data.token) {
+            token = data.token;
+            document.getElementById("tokenBox").style.display = "block";
+            document.getElementById("tokenDisplay").textContent =
+              token.substring(0, 50) + "...";
+          }
+
+          displayResponse("login", data, response.ok);
+        } catch (error) {
+          displayResponse("login", { error: error.message }, false);
+        }
+      }
+
+      async function apiCall(method, endpoint, body, testId) {
+        if (!token) {
+          displayResponse(testId, { error: "Please login first" }, false);
+          return;
+        }
+
+        try {
+          const options = {
+            method,
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          };
+          if (body) options.body = JSON.stringify(body);
+
+          const response = await fetch(`${API_BASE}${endpoint}`, options);
+          const data = await response.json();
+          displayResponse(testId, data, response.ok);
+        } catch (error) {
+          displayResponse(testId, { error: error.message }, false);
+        }
+      }
+
+      async function testGetStudents() {
+        await apiCall("GET", "/students", null, "students-get");
+      }
+
+      async function testGetStudent(id) {
+        await apiCall("GET", `/students/${id}`, null, "students-single");
+      }
+
+      async function testSearchStudents() {
+        await apiCall("GET", "/students?search=john", null, "students-search");
+      }
+
+      async function testCreateStudent() {
+        const student = {
+          first_name: "Test",
+          last_name: "Student",
+          email: `test${Date.now()}@example.com`,
+          phone: "555-9999",
+          address: "123 Test St",
+          dob: "2000-01-01",
+          gender: "Male",
+        };
+        await apiCall("POST", "/students", student, "students-create");
+      }
+
+      async function testGetCourses() {
+        await apiCall("GET", "/courses", null, "courses-get");
+      }
+
+      async function testGetCourse(id) {
+        await apiCall("GET", `/courses/${id}`, null, "courses-single");
+      }
+
+      async function testSearchCourses() {
+        await apiCall(
+          "GET",
+          "/courses?search=computer",
+          null,
+          "courses-search"
+        );
+      }
+
+      async function testCreateCourse() {
+        const course = {
+          name: "Test Course",
+          code: `TEST${Date.now()}`,
+          description: "Test course description",
+          credits: 3,
+        };
+        await apiCall("POST", "/courses", course, "courses-create");
+      }
+
+      async function testGetStudentCourses(id) {
+        await apiCall(
+          "GET",
+          `/enrollments/student/${id}`,
+          null,
+          "enroll-student"
+        );
+      }
+
+      async function testGetCourseStudents(id) {
+        await apiCall(
+          "GET",
+          `/enrollments/course/${id}`,
+          null,
+          "enroll-course"
+        );
+      }
+
+      async function testCreateEnrollment() {
+        const enrollment = {
+          student_id: 1,
+          course_id: 3,
+        };
+        await apiCall("POST", "/enrollments", enrollment, "enroll-create");
+      }
+
+      async function runAllTests() {
+        stats = { total: 11, passed: 0, failed: 0 };
+        updateStats();
+
+        await testLogin();
+        await new Promise((resolve) => setTimeout(resolve, 500));
+
+        await testGetStudents();
+        await new Promise((resolve) => setTimeout(resolve, 300));
+
+        await testGetStudent(1);
+        await new Promise((resolve) => setTimeout(resolve, 300));
+
+        await testSearchStudents();
+        await new Promise((resolve) => setTimeout(resolve, 300));
+
+        await testCreateStudent();
+        await new Promise((resolve) => setTimeout(resolve, 300));
+
+        await testGetCourses();
+        await new Promise((resolve) => setTimeout(resolve, 300));
+
+        await testGetCourse(1);
+        await new Promise((resolve) => setTimeout(resolve, 300));
+
+        await testSearchCourses();
+        await new Promise((resolve) => setTimeout(resolve, 300));
+
+        await testCreateCourse();
+        await new Promise((resolve) => setTimeout(resolve, 300));
+
+        await testGetStudentCourses(1);
+        await new Promise((resolve) => setTimeout(resolve, 300));
+
+        await testGetCourseStudents(1);
+        await new Promise((resolve) => setTimeout(resolve, 300));
+
+        await testCreateEnrollment();
+      }
+
+      updateStats();
+    </script>
+  </body>
+</html>

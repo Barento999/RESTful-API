@@ -1,51 +1,63 @@
-# Student Management System - RESTful API
+# 🎓 Student Management System - RESTful API
 
-A complete RESTful API built with pure PHP and MySQL for managing students, courses, and enrollments with JWT authentication.
+[![PHP Version](https://img.shields.io/badge/PHP-7.4%2B-blue.svg)](https://www.php.net/)
+[![MySQL](https://img.shields.io/badge/MySQL-5.7%2B-orange.svg)](https://www.mysql.com/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
-## Features
+A complete, production-ready RESTful API built with **pure PHP** and **MySQL** for managing students, courses, and enrollments with **JWT authentication**.
 
-- JWT-based authentication
-- Complete CRUD operations for Students, Courses, and Enrollments
-- Search and filtering
-- Pagination support
-- CSV export functionality
-- Secure password hashing
-- SQL injection protection with prepared statements
-- Proper HTTP status codes
-- JSON responses
+---
 
-## Requirements
+## ✨ Features
 
-- PHP 7.4+
-- MySQL 5.7+
-- Apache with mod_rewrite enabled
-- XAMPP (recommended for local development)
+- 🔐 **JWT-based authentication** - Secure token-based auth
+- 📚 **Complete CRUD operations** - Students, Courses, and Enrollments
+- 🔍 **Search and filtering** - Find records quickly
+- 📄 **Pagination support** - Handle large datasets
+- 📊 **CSV export** - Export data to spreadsheets
+- 🔒 **Secure password hashing** - bcrypt encryption
+- 🛡️ **SQL injection protection** - Prepared statements
+- ✅ **Proper HTTP status codes** - RESTful best practices
+- 📦 **JSON responses** - Standard API format
 
-## Installation
+---
 
-### 1. Start XAMPP
+## 📋 Requirements
 
-- Start Apache and MySQL services
+| Requirement | Version          |
+| ----------- | ---------------- |
+| PHP         | 7.4+             |
+| MySQL       | 5.7+             |
+| Apache      | with mod_rewrite |
+| XAMPP       | (recommended)    |
 
-### 2. Create Database
+---
+
+## 🚀 Quick Start
+
+### 1️⃣ Start XAMPP
+
+- Start **Apache** and **MySQL** services
+
+### 2️⃣ Create Database
 
 - Open phpMyAdmin: `http://localhost/phpmyadmin`
-- Import `setup.sql` file or run the SQL commands manually
+- Import `setup.sql` file **OR** double-click `import-database.bat`
 
-### 3. Configure Database
+### 3️⃣ Configure Database (Optional)
 
-- Edit `config.php` if your MySQL credentials differ from defaults
-- Default: username=`root`, password=`` (empty)
+- Edit `config.php` if your MySQL credentials differ
+- Default: `username=root`, `password=` (empty)
 
-### 4. Copy Files
+### 4️⃣ Test the API
 
-- Place the project folder in `C:\xampp\htdocs\`
+- Open: `http://localhost/rest-api/test-api.html`
+- Click **Login** with default credentials
 
-### 5. Test the API
+---
 
-- Open browser: `http://localhost/rest-api/`
-
-## Default Admin Credentials
+## 🔑 Default Admin Credentials
 
 ```
 Email: admin@example.com
